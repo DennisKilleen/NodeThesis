@@ -1,0 +1,88 @@
+<!DOCTYPE HTML> <!-- Html start -->
+<html lang="en"> <!-- SOF -->
+<head> <!-- Head start -->
+	<link rel="shortcut icon" href="favicon.ico" /> <!-- icon -->
+	<!-- Javascript source files found in the 'js' folder-->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/slide-menu.js"></script>
+	<script type="text/javascript" src="js/docCookie.js"></script>
+	<script type="text/javascript" src="js/Db.js"></script>
+	<script type="text/javascript" src="js/Sockets.js"></script>
+	<script>
+		var socket = io('http://localhost:8080'); //Sets the socket to connect with the server port
+		socket.on('DBenter', function(msg) //socket listens for DB enter
+		{
+			if(msg.Status == "created") //If the JSON variable 'Status: created' was in the data sent by the socket
+			{
+				created(msg); //Send the user to be redirected
+			}
+		});
+		socket.on('DBfind', function(msg) //socket listens for DB find
+		{
+			console.log(msg);
+			if(msg.Status == "found") //If the JSON variable 'Status: found' was in the data sent by the socket
+			{
+				found(msg); //Redirect the user
+			}
+		});
+	</script>
+	<!-- START CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
+	<link href='css/style.css' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		div.inline { float:left; }
+		.clearBoth { clear:both; }
+	</style>
+	<!-- END CSS -->
+</head> <!-- Head end -->
+<body> <!-- Start body -->
+	<div class="mobile-header"> <!-- Mobile header start -->
+		<ul class="clearfloat"> <!-- Unordered list start -->
+			<li> <!-- List item start -->
+				<a>Thesis</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>Dennis Killeen</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>A00183115</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>************</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+		</ul> <!-- Unordered list end -->
+	</div> <!-- Mobile header end -->
+
+
+	<div id="container-outer"> <!-- Central container on the page-->
+		<div id="container"> <!-- Container start -->
+			<div id="container-inner"> <!-- Container inner start -->
+				<h1><center>Thesis Landing page</center></h1><!-- Header -->
+				<div class="inline"><!-- Makes sure the elements appear in-line(side-by-side) with each other -->
+					<div> <!-- Outer Div -->
+						<div>  <!-- Input Div -->
+							<p>Name you wish to create/connect to: <input name="Connect" type="text" style = "background:white;"></p><!-- Input box for user to put in a string -->
+							<p> After you input a name click on a button below</p> <!-- Text -->
+						</div>  <!-- Input Div -->
+							<button class="btnIndex" type="button" onclick="host();">Host</button> <!-- Button to go to the host page -->
+							<button class="btnIndex" type="button" onclick="responder();">Responder</button> <!-- Button to go to the responsive page -->
+						<div><!-- Instructions div -->
+							<p><center> If the Responder does not respond to the button click please check:</br> <!-- Text instruction -->
+								1) The information you have entered is correct, </br> <!-- Text instruction -->
+								2) The host name already exists, </br> <!-- Text instruction -->
+								3) The connection is local  <!-- Text instruction -->
+							</center></p> 
+						</div> <!-- Instructions div end -->
+						<div> <!-- Button div -->
+							<p>To delete your cookie for this session press the button</p> <!-- Text instruction -->
+							<button type="button" style= "background:white;" onclick="deleteCookie();">Clear cookie</button> <!-- Allows the user to delete their cookie with an alert box -->
+							<p>To see your cookie for this session press the button</p> <!-- Text instruction -->
+							<button type="button" style= "background:white;" onclick="getCookie();">Get cookie</button> <!-- Allows the user to see their cookie in an alert box -->
+						</div> <!-- Button div end -->
+					</div> <!-- Outer Div End -->
+				</div> <!-- Inline End -->
+			</div> <!-- Inner Container End -->
+		</div> <!-- Container End -->
+	</div> <!-- Full Site Container Outer End -->
+</body> <!-- End body -->
+</html> <!-- EOF -->

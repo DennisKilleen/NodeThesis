@@ -1,0 +1,98 @@
+<!DOCTYPE HTML> <!-- Html start -->
+<html lang="en"> <!-- SOF -->
+<head> <!-- Head start -->
+	<link rel="shortcut icon" href="favicon.ico" /> <!-- icon -->
+	<!-- Javascript source files found in the 'js' folder-->
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/slide-menu.js"></script>
+	<script type="text/javascript" src="../js/docCookie.js"></script>
+	<script type="text/javascript" src="../js/Sockets.js"></script>
+	<script type="text/javascript" src="../js/Db.js"></script>
+	<script type="text/javascript" src="../js/animate.js"></script>
+	<!-- WebGl source files found in the 'gl_js' folder-->
+	<script type="text/javascript" src="../gl_js/three.js"></script>
+	<script type="text/javascript" src="../gl_js/physi.js"></script>
+	<script type="text/javascript" src="../gl_js/responder.js"></script>
+	<script>
+		var socket = io('http://localhost:8080'); //Set up the sockets
+		var socketGL; //Set an empty variable for the socket set later
+		var cookie = getCookieReturn(); //Get the cookie
+		if(cookie) //If there is a cookie
+		{
+			socket.emit('hostResponderStatus', {Status: 'Connecting', Name: cookie, Entity: 'Responder'}); //Emit to node the responder is connecting
+			socket.on('StartingGL', function(msg) //Listens as both parties have to submit information before any drawing can happen
+			{
+				if(msg.Status == 'Starting') //If the responder is only ready
+				{
+					alert("The host is not available redirecting back to main page"); //Alert the user
+					//window.location.href = "../index.html"; //Uncomment if you want the page to redirect back to the index
+				}
+				if(msg.Status == 'BothReady') //If host and responder are ready
+				{
+					$('#animate').css('-webkit-animation-name','Connection'); //Change the animation
+					socketGL = io('http://localhost:9000'); //Set the socket for the child
+					socketGL.emit('glready', {Responder: 'ready'});  //Emit to the child the responder is ready
+					respond(); //Begin the drawing
+				}
+			});
+		}
+		else if(!cookie) //If there is not a cookie
+		{
+			alert("Please return as your cookie for this session has not been found"); //Alert the user to start again
+		}
+	</script>
+	<!-- START CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
+	<link href='../css/style.css' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		div.inline { float:left; }
+		.clearBoth { clear:both; }
+	</style>
+	<!-- END CSS -->
+</head> <!-- Head end -->
+<body> <!-- Start body -->
+	<div class="mobile-header"> <!-- Mobile header start -->
+		<ul class="clearfloat"> <!-- Unordered list start -->
+			<li> <!-- List item start -->
+				<a>Thesis</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>Dennis Killeen</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>A00183115</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+			<li> <!-- List item start -->
+				<a>************</a> <!-- What is in the list -->
+			</li> <!-- List item end -->
+		</ul> <!-- Unordered list end -->
+	</div> <!-- Mobile header end -->
+
+	<div id="container-outer"> <!-- Central container on the page-->
+		<div id="container"> <!-- Container start -->
+			<div id="container-inner"> <!-- Container inner start -->
+				<h1><center>Thesis Responsive page</center></h1> <!-- Header -->
+				<div> <!-- Div -->
+					<center> <!-- Center Start -->
+						<div> <!-- Div that groups all the attributes together start -->
+							<div> <!-- Instructions div -->
+								<p><center>To see your cookie for this session press the button</center></p> <!-- Text instruction -->
+							</div> <!-- Instructions div end -->
+							<div align="right"> <!-- Blinking light div -->
+								<div id="animate"></div> <!-- Blinking box element -->
+							</div> <!-- Blinking light div end -->
+							<div> <!-- Canvas div -->
+								<div id="ctx" class="canvas_for_three"></div> <!-- Canvas -->
+							</div> <!-- Canvas div -->
+							<div > <!-- Below canvas div -->
+							<div> <!-- Instructions div -->
+								<p><center>A Red light above dictates that the connection has not been made to a responder. Green means vice versa</center></p> <!-- Text instruction -->
+							</div> <!-- Instructions div end -->
+						</div> <!-- Div that groups all the attributes together end -->
+					</center>  <!-- Center End -->
+				</div> <!-- Div end -->
+			</div> <!-- Inner Container End -->
+		</div> <!-- Container End -->
+	</div><!-- Full Site Container Outer End -->
+</body> <!-- End body -->
+</html> <!-- EOF -->
