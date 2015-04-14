@@ -4,6 +4,6 @@
 #author "Dennis Killeen"
 
 cd /../
-cd /home/dennis/Thesis/thesisver1.0/server
+cd thesis/NodeThesis/server
 node app.js &
 
