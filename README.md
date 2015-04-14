@@ -70,8 +70,13 @@ Please dont contribute as this is for my Thesis and must be all my own work.
 Currently I am creating a customized Ubuntu installer.  
 I will link it here so that all you have to do is use a vm to view the project in action.  
 https://www.dropbox.com/s/lap4ktrpsnowmcs/livecd.iso?dl=0  
-Currently I am testing the OS to make sure It works.
-
+This has all the software pre installed.  
+Simply 
+```
+cd /thesis/NodeThesis/server
+node app.js
+```
+Open the browser and off to local host:8080 with you!!
 ## License
 
 No license at all.  

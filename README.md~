@@ -38,8 +38,8 @@ echo 'export PATH=$HOME/.npm/bin:$PATH' >> ~/.bashrc
 These steps I followed by referencing https://github.com/rodrigopolo/node-mongo-demo/tree/master/install_instructions
 ## Usage
 
-For Windows:
-cd to the miongo/bin directory:  
+For Windows:  
+cd to the mongo/bin directory:  
 Run the command  
 ```
 mongod --dbpath C:/Path/to/the/DB/directory/in/the/project 
