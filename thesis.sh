@@ -3,7 +3,7 @@
 #description "Node.js server"
 #author "Dennis Killeen"
 
-cd /home/dennington-bear/Desktop/thesis/server/
-npm install
-node app.js
-firefox localhost:8080
+cd /../
+cd /thesis/NodeThesis/server/
+node app.js &
+firefox localhost:8080 &
