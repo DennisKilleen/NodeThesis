@@ -4,8 +4,6 @@
 #author "Dennis Killeen"
 
 cd /../
-cd /thesis/NodeThesis/server/
+cd /home/dennis/Thesis/thesisver1.0/server
 node app.js &
-sleep 1
-firefox localhost:8080 &
-firefox localhost:8080 &
+
